@@ -50,10 +50,10 @@ app.use(express.static(path.join(__dirname,"/public")));
 const store = MongoStore.create({
     mongoUrl : dbUrl,
     crypto : {
-        secret: process.env.SESSION_SECRET
+        secret: process.env.SESSION_SECRET || "thisisnotagoodsecret"
     },
     touchAfter: 24*3600, 
-})
+});
 
 store.on("error", () => {
     console.log("ERROR in MONGO SESSION STORE", err)
@@ -61,7 +61,7 @@ store.on("error", () => {
 
 const sessionOptions={
     store,
-    secret:process.env.SESSION_SECRET ,
+    secret:process.env.SESSION_SECRET  || "thisisnotagoodsecret",
     resave: false,
     saveUninitialized: true,
     cookie: {
