@@ -71,10 +71,6 @@ const sessionOptions={
     }
 }
 
-//root route
-// app.get("/", (req,res)=>{
-//     res.send("Hi! I am root");
-// });
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -92,6 +88,12 @@ app.use((req,res,next)=>{
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
     next();
+});
+
+
+// root route
+app.get("/", (req,res)=>{
+    res.send("Hi! I am root");
 });
 
 // app.get("/demouser", async(req,res)=>{
